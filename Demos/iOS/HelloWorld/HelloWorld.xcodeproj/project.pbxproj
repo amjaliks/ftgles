@@ -32,7 +32,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E431F7E0112E8EED00E393A2 /* ftgles.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 631AB71412FA906200243329 /* libFTGLES2.a */;
+			remoteGlobalIDString = 631AB71412FA906200243329;
 			remoteInfo = FTGLES2;
 		};
 		63D4046811EA5CE70051D8F3 /* PBXContainerItemProxy */ = {
@@ -328,7 +328,6 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = YES;
-				GCC_VERSION = 4.2;
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				HEADER_SEARCH_PATHS = (
 					"../../../freetype-2.3.9/include/**",

@@ -1870,7 +1870,6 @@
 					"FT_OPTION_AUTOFIT2=1",
 				);
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = 4.2;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"../../freetype-2.3.9/src",

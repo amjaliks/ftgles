@@ -350,7 +350,6 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = YES;
-				GCC_VERSION = 4.2;
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				HEADER_SEARCH_PATHS = (
 					"../../../freetype-2.3.9/include/**",
