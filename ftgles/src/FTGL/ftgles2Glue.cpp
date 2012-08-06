@@ -30,8 +30,7 @@
 
 enum {
     ATTRIB_VERTEX,
-    ATTRIB_COLOR,
-    NUM_ATTRIBUTES
+    ATTRIB_TEXCOORD
 };
 
 
@@ -79,7 +78,7 @@ GLvoid ftglBegin(GLenum prim)
 	ftglesGlueArrays.currIndex = 0;
 	ftglesCurrentPrimitive = prim;
 	glEnableVertexAttribArray(ATTRIB_VERTEX);
-	glEnableVertexAttribArray(ATTRIB_COLOR);
+	glEnableVertexAttribArray(ATTRIB_TEXCOORD);
 }
 
 
@@ -164,79 +163,6 @@ GLvoid ftglBindTexture(unsigned int textureId)
 
 GLvoid ftglEnd() 
 {
-    /*
-	GLboolean vertexArrayEnabled;
-	GLboolean texCoordArrayEnabled;
-	GLboolean colorArrayEnabled;
-	
-	GLvoid * vertexArrayPointer;
-	GLvoid * texCoordArrayPointer;
-	GLvoid * colorArrayPointer;
-	
-	GLint vertexArrayType, texCoordArrayType, colorArrayType;
-	GLint vertexArraySize, texCoordArraySize, colorArraySize;
-	GLsizei vertexArrayStride, texCoordArrayStride, colorArrayStride;
-	
-	bool resetPointers = false;
-	
-	glGetPointerv(GL_VERTEX_ARRAY_POINTER, &vertexArrayPointer);
-	glGetPointerv(GL_TEXTURE_COORD_ARRAY_POINTER, &texCoordArrayPointer);
-	glGetPointerv(GL_COLOR_ARRAY_POINTER, &colorArrayPointer);
-
-	glGetBooleanv(GL_VERTEX_ARRAY, &vertexArrayEnabled);
-	glGetBooleanv(GL_TEXTURE_COORD_ARRAY, &texCoordArrayEnabled);
-	glGetBooleanv(GL_COLOR_ARRAY, &colorArrayEnabled);
-
-	if (!vertexArrayEnabled)
-	{
-		glEnableClientState(GL_VERTEX_ARRAY);
-	}
-	
-	if (vertexArrayPointer != &ftglesGlueArrays.vertices[0].xyz)
-	{
-		glGetIntegerv(GL_VERTEX_ARRAY_TYPE, &vertexArrayType);
-		glGetIntegerv(GL_VERTEX_ARRAY_SIZE, &vertexArraySize);
-		glGetIntegerv(GL_VERTEX_ARRAY_STRIDE, &vertexArrayStride);
-		if (texCoordArrayEnabled)
-		{
-			glGetIntegerv(GL_TEXTURE_COORD_ARRAY_TYPE, &texCoordArrayType);
-			glGetIntegerv(GL_TEXTURE_COORD_ARRAY_SIZE, &texCoordArraySize);
-			glGetIntegerv(GL_TEXTURE_COORD_ARRAY_STRIDE, &texCoordArrayStride);
-		}	
-		if (colorArrayEnabled)
-		{
-			glGetIntegerv(GL_COLOR_ARRAY_TYPE, &colorArrayType);
-			glGetIntegerv(GL_COLOR_ARRAY_SIZE, &colorArraySize);
-			glGetIntegerv(GL_COLOR_ARRAY_STRIDE, &colorArrayStride);
-		}
-        
-
-        
-		//glVertexPointer(3, GL_FLOAT, sizeof(ftglesVertex_t), ftglesGlueArrays.vertices[0].xyz);
-		//glTexCoordPointer(2, GL_FLOAT, sizeof(ftglesVertex_t), ftglesGlueArrays.vertices[0].st);
-		//glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(ftglesVertex_t), ftglesGlueArrays.vertices[0].rgba);
-		
-		resetPointers = true;
-	}
-	
-	if (!texCoordArrayEnabled)
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
-	if (!colorArrayEnabled)
-		glEnableClientState(GL_COLOR_ARRAY);
-	*/
-    
-    int currentProgram;
-    
-    glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
-    
-    if (currentProgram == 0)
-    {
-        return;
-    }
-    
-    GLint texCoordLocation = glGetAttribLocation(currentProgram, "texCoord");
-    
 	if (ftglesGlueArrays.currIndex == 0) 
 	{
 		ftglesCurrentPrimitive = 0;
@@ -244,10 +170,7 @@ GLvoid ftglEnd()
 	}
     
     glVertexAttribPointer(ATTRIB_VERTEX, 3, GL_FLOAT, 0, sizeof(ftglesVertex_t), ftglesGlueArrays.vertices[0].xyz);
-    glVertexAttribPointer(ATTRIB_COLOR, 4, GL_UNSIGNED_BYTE, 0, sizeof(ftglesVertex_t), ftglesGlueArrays.vertices[0].rgba);
-	
-    glVertexAttribPointer(texCoordLocation, 2, GL_FLOAT, 0, sizeof(ftglesVertex_t), ftglesGlueArrays.vertices[0].st); 
-    glEnableVertexAttribArray(texCoordLocation);
+    glVertexAttribPointer(ATTRIB_TEXCOORD, 2, GL_FLOAT, 0, sizeof(ftglesVertex_t), ftglesGlueArrays.vertices[0].st);
     
 	if (ftglesCurrentPrimitive == GL_QUADS) 
 	{
@@ -259,39 +182,6 @@ GLvoid ftglEnd()
 	}
 	ftglesGlueArrays.currIndex = 0;
 	ftglesCurrentPrimitive = 0;
-    
-    
-	
-    /*
-	if (resetPointers)
-	{
-		if (vertexArrayEnabled)
-		{
-			glVertexPointer(vertexArraySize, vertexArrayType, 
-							vertexArrayStride, vertexArrayPointer);	
-		}
-		if (texCoordArrayEnabled)
-		{
-			glTexCoordPointer(texCoordArraySize, texCoordArrayType, 
-							  texCoordArrayStride, texCoordArrayPointer);
-		}
-		if (colorArrayEnabled)
-		{
-			glColorPointer(colorArraySize, colorArrayType, 
-						   colorArrayStride, colorArrayPointer);
-		}
-	}
-	
-	if (!vertexArrayEnabled)
-		glDisableClientState(GL_VERTEX_ARRAY);
-	
-	if (!texCoordArrayEnabled)
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	
-	if (!colorArrayEnabled)
-		glDisableClientState(GL_COLOR_ARRAY);
-     */
-    ftglError("z");
 }
 
 
